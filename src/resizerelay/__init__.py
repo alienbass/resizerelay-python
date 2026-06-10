@@ -82,6 +82,27 @@ def _header_int(response: requests.Response, name: str) -> Optional[int]:
         return None
 
 
+def _sniff_image_type(data: bytes) -> Optional[str]:
+    """Detect the image MIME type from magic bytes.
+
+    The API rejects untyped uploads, and sniffing beats trusting extensions.
+    """
+    if len(data) < 12:
+        return None
+    if data[:3] == b"\xff\xd8\xff":
+        return "image/jpeg"
+    if data[:4] == b"\x89PNG":
+        return "image/png"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "image/webp"
+    if data[:4] == b"GIF8":
+        return "image/gif"
+    # ISO-BMFF "ftyp" box with a HEIC/HEIF brand.
+    if data[4:8] == b"ftyp" and data[8:12] in (b"heic", b"heix", b"hevc", b"mif1", b"msf1"):
+        return "image/heic"
+    return None
+
+
 class ResizeRelay:
     """Client for the Resize Relay API.
 
@@ -182,11 +203,18 @@ class ResizeRelay:
         if min_kb is not None:
             data["minBytes"] = str(round(min_kb * 1000))
 
+        mime = _sniff_image_type(payload)
+        if mime is None:
+            raise ValueError(
+                "Could not detect the image type — input doesn't look like a "
+                "JPEG, PNG, WebP, GIF, or HEIC."
+            )
+
         try:
             response = self._session.post(
                 f"{self.base_url}/api/v1/resize",
                 headers={"authorization": f"Bearer {self.api_key}"},
-                files={"file": (name, payload)},
+                files={"file": (name, payload, mime)},
                 data=data,
                 timeout=self.timeout,
             )
