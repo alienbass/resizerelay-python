@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "resizerelay"
+version = "0.1.0"
+description = "Official Python SDK for the Resize Relay API — resize images to exact KB file sizes and exact dimensions (passport, exam, and marketplace specs)."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+authors = [{ name = "Resize Relay", email = "support@resizerelay.com" }]
+keywords = [
+  "image",
+  "resize",
+  "image-resize",
+  "compress-image",
+  "exact-kb",
+  "image-api",
+  "passport-photo",
+  "resizerelay",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+]
+dependencies = ["requests>=2.20"]
+
+[project.urls]
+Homepage = "https://www.resizerelay.com/api-docs"
+Documentation = "https://www.resizerelay.com/api-docs"
+Repository = "https://github.com/alienbass/resizerelay-python"
+Issues = "https://github.com/alienbass/resizerelay-python/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
