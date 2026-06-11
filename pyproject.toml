@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "resizerelay"
-version = "0.1.0"
+version = "0.1.1"
 description = "Official Python SDK for the Resize Relay API — resize images to exact KB file sizes and exact dimensions (passport, exam, and marketplace specs)."
 readme = "README.md"
 license = { text = "MIT" }

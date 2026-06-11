@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/resizerelay)](https://pypi.org/project/resizerelay/) [![license](https://img.shields.io/pypi/l/resizerelay)](./LICENSE)
 
-Official Python client for the [Resize Relay API](https://www.resizerelay.com/api-docs): resize images to **exact KB file sizes** and **exact pixel dimensions** — the specs that passport portals, government exam forms, and marketplaces actually enforce.
+Official Python client for the [Resize Relay API](https://www.resizerelay.com/api-docs) — resize images to **exact KB file sizes** and **exact pixel dimensions** — the specs that passport portals, government exam forms, and marketplaces actually enforce.
 
 - **Exact-size engine** — binary-searches encoder quality to hit a KB ceiling (and a floor, for "20–50 KB" style bands), reducing resolution only when unavoidable.
 - **Exact-dimension crops** — `fit="cover"` produces exactly `width×height` with a centered, saliency-aware crop (no stretching).
